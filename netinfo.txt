@@ -1,0 +1,26 @@
+	if args.chainID == "" {
+		args.chainID = "chain-" + tmrand.Str(6)
+	}
+	nodeIDs := make([]string, args.numValidators)
+	valPubKeys := make([]cryptotypes.PubKey, args.numValidators)
+
+	appConfig := srvconfig.DefaultConfig()
+	appConfig.MinGasPrices = args.minGasPrices
+	appConfig.API.Enable = true
+	appConfig.Telemetry.Enabled = true
+	appConfig.Telemetry.PrometheusRetentionTime = 60
+	appConfig.Telemetry.EnableHostnameLabel = false
+	appConfig.Telemetry.GlobalLabels = [][]string{{"chain_id", args.chainID}}
+
+	var (
+		genAccounts []authtypes.GenesisAccount
+		genBalances []banktypes.Balance
+		genFiles    []string
+	)
+	const (
+		rpcPort     = 26657
+		apiPort     = 1317
+		grpcPort    = 9090
+		grpcWebPort = 8090
+	)
+	p2pPortStart := 26656

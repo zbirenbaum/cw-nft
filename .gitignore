@@ -1,5 +1,6 @@
 # macOS
 .DS_Store
+.testnets
 
 # Text file backups
 **/*.rs.bk
